@@ -12,6 +12,7 @@ export default defineConfig({
       "@hooks": path.resolve(__dirname, "src/hooks"),
       "@firebase": path.resolve(__dirname, "src/firebase"),
       "@assets": path.resolve(__dirname, "src/assets"),
+      "@pages": path.resolve(__dirname, "src/pages"),
     },
   },
 });
