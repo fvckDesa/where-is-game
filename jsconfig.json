@@ -7,7 +7,7 @@
       "@src/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@firebase/*": ["./src/firebase/*"],
+      "@appFirebase/*": ["./src/firebase/*"],
       "@assets/*": ["./src/assets/*"],
       "@pages/*": ["./src/pages/*"]
     }
