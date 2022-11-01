@@ -9,7 +9,9 @@
       "@hooks/*": ["./src/hooks/*"],
       "@appFirebase/*": ["./src/firebase/*"],
       "@assets/*": ["./src/assets/*"],
-      "@pages/*": ["./src/pages/*"]
+      "@pages/*": ["./src/pages/*"],
+      "@types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "exclude": ["node_modules"],

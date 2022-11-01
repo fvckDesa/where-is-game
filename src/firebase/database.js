@@ -5,6 +5,12 @@ import {
   addDoc,
   collection,
   updateDoc,
+  getDoc,
+  getDocs,
+  query,
+  doc,
+  limit,
+  serverTimestamp,
 } from "firebase/firestore";
 
 export const db = getFirestore(app);
@@ -48,4 +54,33 @@ export async function addCharacter(character, gameId) {
   } catch (error) {
     console.error("There was an error adding character:", error);
   }
+}
+
+export async function getGameFromId(gameId) {
+  const game = await getDoc(doc(db, "game", gameId));
+  if (!game.exists()) return null;
+
+  const charactersQuery = query(
+    collection(db, "game", gameId, "characters"),
+    limit(3)
+  );
+
+  const characters = await getDocs(charactersQuery);
+
+  return {
+    ...game.data(),
+    id: game.id,
+    characters: characters.docs.map((character) => ({
+      ...character.data(),
+      id: character.id,
+    })),
+  };
+}
+
+export async function setGameScore(gameId, name, score) {
+  await addDoc(collection(db, "game", gameId, "leaderboard"), {
+    name,
+    score,
+    date: serverTimestamp(),
+  });
 }

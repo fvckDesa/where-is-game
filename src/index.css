@@ -5,3 +5,13 @@
 * {
   box-sizing: border-box;
 }
+
+@layer components {
+  .character {
+    @apply flex items-center gap-1 px-5 py-2;
+  }
+
+  .character img {
+    @apply w-[48px] h-[48px] object-cover;
+  }
+}

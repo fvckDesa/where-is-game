@@ -13,6 +13,8 @@ export default defineConfig({
       "@appFirebase": path.resolve(__dirname, "src/firebase"),
       "@assets": path.resolve(__dirname, "src/assets"),
       "@pages": path.resolve(__dirname, "src/pages"),
+      "@types": path.resolve(__dirname, "src/types"),
+      "@utils": path.resolve(__dirname, "src/utils"),
     },
   },
 });
