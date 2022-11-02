@@ -12,3 +12,9 @@ export const characterType = PropTypes.exact({
   coords: coordType,
   found: PropTypes.bool,
 });
+
+export const gameType = PropTypes.exact({
+  name: PropTypes.string,
+  image: PropTypes.string,
+  id: PropTypes.string,
+});

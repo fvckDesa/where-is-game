@@ -19,6 +19,9 @@ module.exports = {
       animation: {
         rotate: "rotate 5s linear infinite",
       },
+      boxShadow: {
+        game: "inset 0px -200px 57px -49px rgba(0,0,0,0.75)",
+      },
     },
   },
   plugins: [],
