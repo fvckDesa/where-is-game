@@ -10,3 +10,9 @@ export function formatTimer(timer) {
   s %= 60;
   return `${format(h)}:${format(m)}:${format(s)}`;
 }
+
+export function createCoordInRange(range) {
+  return function isCoordInRange(coord, mainCoord) {
+    return coord >= mainCoord - range && coord <= mainCoord + range;
+  };
+}
