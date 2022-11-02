@@ -1,6 +1,8 @@
 // types
 import PropTypes from "prop-types";
 import { characterType } from "@types";
+// components
+import Character from "@components/Character";
 
 function DropDown({ characters, onSelect, onClose, x, y }) {
   return (
@@ -14,10 +16,10 @@ function DropDown({ characters, onSelect, onClose, x, y }) {
           .map(({ id, name, image, coords }) => (
             <li
               key={id}
-              className="character border-b-2 border-b-slate-400 last:border-b-0 hover:bg-slate-300 transition-colors duration-300 cursor-pointer"
+              className="flex items-center gap-3 px-4 py-2 border-b-2 border-b-slate-400 last:border-b-0 hover:bg-slate-300 transition-colors duration-300 cursor-pointer"
               onClick={() => onSelect(id, coords)}
             >
-              <img src={image} alt={`${name} image`} />
+              <Character name={name} image={image} />
               <span>{name}</span>
             </li>
           ))}

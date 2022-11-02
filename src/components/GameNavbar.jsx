@@ -3,13 +3,20 @@ import PropTypes from "prop-types";
 import { characterType } from "@types";
 // utils
 import { formatTimer } from "@utils";
+// components
+import Character from "@components/Character";
 
 function GameNavbar({ characters, timer }) {
   return (
-    <header className="h-[10%] flex justify-center items-center">
+    <header className="h-[10%] flex justify-center items-center gap-4">
       {characters.map(({ name, image, id, found }) => (
-        <div className={`character ${found ? "opacity-40" : ""}`} key={id}>
-          <img src={image} alt={`${name} image`} />
+        <div
+          className={`flex justify-center items-center gap-1 ${
+            found ? "opacity-40" : ""
+          }`}
+          key={id}
+        >
+          <Character name={name} image={image} />
           <span>{name}</span>
         </div>
       ))}
