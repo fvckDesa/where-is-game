@@ -16,7 +16,7 @@ function GameOver({ score }) {
   function handlerSubmit(e) {
     e.preventDefault();
     setGameScore(gameId, name, score);
-    navigation("/score");
+    navigation(`/leaderboard/${gameId}`);
   }
 
   return (

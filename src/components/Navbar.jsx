@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 
 const navItems = [
-  { name: "Home", to: "/" },
-  { name: "score", to: "/score" },
+  { name: "Home", to: "/", end: true },
+  { name: "Leaderboard", to: "/leaderboard", end: false },
 ];
 
 function Navbar() {
@@ -10,8 +10,8 @@ function Navbar() {
     <header className="flex justify-between px-7 py-5 h-[10%]">
       <h1>Where is?</h1>
       <nav className="flex gap-1">
-        {navItems.map(({ name, to }) => (
-          <NavLink key={name} to={to} end>
+        {navItems.map(({ name, to, end }) => (
+          <NavLink key={name} to={to} end={end}>
             {({ isActive }) => (
               <div className="group px-3 py-1">
                 <span>{name}</span>

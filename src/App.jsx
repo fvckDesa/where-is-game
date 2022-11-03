@@ -6,7 +6,9 @@ import Loader from "@components/Loader";
 // lazy components
 const Home = lazy(() => import("@pages/Home"));
 const Game = lazy(() => import("@pages/Game"));
-const Score = lazy(() => import("@pages/Score"));
+const LeaderBoard = lazy(() => import("@pages/LeaderBoard"));
+const Table = lazy(() => import("@pages/Table"));
+const LeaderBoardRoot = lazy(() => import("@pages/LeaderBoardRoot"));
 
 function App() {
   return (
@@ -16,7 +18,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game/:id" element={<Game />} />
-          <Route path="/score" element={<Score />} />
+          <Route path="/leaderboard" element={<LeaderBoard />}>
+            <Route index element={<LeaderBoardRoot />} />
+            <Route path=":id" element={<Table />} />
+          </Route>
         </Routes>
       </Suspense>
     </div>
