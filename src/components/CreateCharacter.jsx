@@ -45,7 +45,7 @@ function CreateCharacter({
   }
 
   return (
-    <li className="relative">
+    <li className="relative cursor-pointer" onClick={() => onSelect({ x, y })}>
       <DropImage
         className={`px-2 border-4 rounded-xl ${
           hasError ? "border-solid border-red-600" : "border-transparent"
@@ -85,18 +85,6 @@ function CreateCharacter({
           <span>x: {x ? Math.round(x) : "unset"}</span>
           <span>y: {y ? Math.round(y) : "unset"}</span>
         </div>
-        <button
-          type="button"
-          className="absolute bottom-0 right-0 flex"
-          onClick={() => onSelect({ x, y })}
-        >
-          <lord-icon
-            src="https://cdn.lordicon.com/iltqorsz.json"
-            trigger="click"
-            colors="primary:#ffffff,secondary:#ff0000"
-            style={{ width: "35px", height: "35px" }}
-          ></lord-icon>
-        </button>
       </DropImage>
     </li>
   );
