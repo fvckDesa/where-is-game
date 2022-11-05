@@ -1,3 +1,4 @@
+// components
 import { DotWave } from "@uiball/loaders";
 
 function Loader() {

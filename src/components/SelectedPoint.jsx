@@ -1,3 +1,6 @@
+// types
+import PropTypes from "prop-types";
+// assets
 import Point from "@assets/point.svg";
 
 function SelectedPoint({ x, y }) {
@@ -7,5 +10,10 @@ function SelectedPoint({ x, y }) {
     </span>
   );
 }
+
+SelectedPoint.propTypes = {
+  x: PropTypes.number,
+  y: PropTypes.number,
+};
 
 export default SelectedPoint;

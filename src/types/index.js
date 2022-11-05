@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-// firebase
+// firebase types
 import { Timestamp } from "firebase/firestore";
 
 export const coordType = PropTypes.exact({
@@ -23,6 +23,10 @@ export const gameType = PropTypes.exact({
 });
 
 export const htmlElementType = PropTypes.instanceOf(HTMLElement);
+
+export const imageElementType = PropTypes.instanceOf(HTMLImageElement);
+
+export const reactRefType = (type) => PropTypes.shape({ current: type });
 
 export const reactChildrenType = PropTypes.oneOfType([
   PropTypes.arrayOf(PropTypes.node),

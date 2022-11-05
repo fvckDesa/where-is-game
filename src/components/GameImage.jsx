@@ -1,6 +1,6 @@
 // types
 import PropTypes from "prop-types";
-import { htmlElementType } from "@types";
+import { htmlElementType, imageElementType, reactRefType } from "@types";
 // hooks
 import { useState, useEffect, forwardRef } from "react";
 
@@ -55,11 +55,12 @@ const GameImage = forwardRef(
 
 GameImage.propTypes = {
   image: PropTypes.string.isRequired,
-  containerRef: PropTypes.shape({ current: htmlElementType }).isRequired,
+  containerRef: reactRefType(htmlElementType).isRequired,
   onClick: PropTypes.func,
   onResize: PropTypes.func,
   x: PropTypes.number,
   y: PropTypes.number,
+  ref: reactRefType(imageElementType).isRequired,
 };
 
 export default GameImage;

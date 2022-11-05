@@ -2,12 +2,19 @@
 import PropTypes from "prop-types";
 // components
 import Character from "./Character";
+import DropImage from "./DropImage";
+// hooks
 import { useEffect, useRef } from "react";
 // assets
 import EmptyCharacter from "@assets/EmptyCharacter.svg";
-import DropImage from "./DropImage";
 
-function CreateCharacter({ character, isSelected, onChange, onSelect, error }) {
+function CreateCharacter({
+  character,
+  isSelected,
+  onChange,
+  onSelect,
+  hasError,
+}) {
   const {
     name,
     image,
@@ -41,7 +48,7 @@ function CreateCharacter({ character, isSelected, onChange, onSelect, error }) {
     <li className="relative">
       <DropImage
         className={`px-2 border-4 rounded-xl ${
-          error ? "border-solid border-red-600" : "border-transparent"
+          hasError ? "border-solid border-red-600" : "border-transparent"
         }`}
         dragOverClass="border-white border-dashed"
         onDrop={changeFile}
@@ -107,7 +114,10 @@ CreateCharacter.propTypes = {
       y: PropTypes.number,
     }),
   }),
+  isSelected: PropTypes.bool,
   onChange: PropTypes.func,
+  onSelect: PropTypes.func,
+  hasError: PropTypes.bool,
 };
 
 export default CreateCharacter;

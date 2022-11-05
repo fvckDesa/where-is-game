@@ -1,14 +1,18 @@
+// hooks
+import { useGameImage } from "@hooks/useGameImage";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// firebase
+import { createGame, addCharacter } from "@appFirebase/database";
+// components
 import GameImage from "@components/GameImage";
 import SelectedPoint from "@components/SelectedPoint";
-import CreateCharacter from "@src/components/CreateCharacter";
-import CreateField from "@src/components/CreateField";
-import { useGameImage } from "@src/hooks/useGameImage";
-import { useEffect, useRef, useState } from "react";
+import CreateCharacter from "@components/CreateCharacter";
+import CreateField from "@components/CreateField";
+import DropImage from "@components/DropImage";
+// assets
 import Image from "@assets/Image.svg";
-import { createGame, addCharacter } from "@appFirebase/database";
-import DropImage from "@src/components/DropImage";
 import ImageIllustration from "@assets/imageIllustration.svg";
-import { useNavigate } from "react-router-dom";
 
 const defaultCharacter = {
   name: "",
@@ -198,7 +202,7 @@ function Create() {
                 isSelected={numCharacter === i}
                 onChange={handlerCharacterChange(i)}
                 onSelect={handlerSelect(i)}
-                error={formError === `character${i}`}
+                hasError={formError === `character${i}`}
               />
             ))}
           </ul>
