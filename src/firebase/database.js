@@ -15,7 +15,10 @@ import {
 } from "firebase/firestore";
 
 export const db = getFirestore(app);
-export const gamesQuery = query(collection(db, "game"));
+export const gamesQuery = query(
+  collection(db, "game"),
+  orderBy("createdAt", "asc")
+);
 
 export function formatDocuments(docs) {
   return docs.map((doc) => ({ ...doc.data(), id: doc.id }));
@@ -26,6 +29,7 @@ export async function createGame(game) {
     const gameRef = await addDoc(collection(db, "game"), {
       ...game,
       image: "",
+      createdAt: serverTimestamp(),
     });
 
     const imageUrl = await uploadGameImage(gameRef.id, game.image);

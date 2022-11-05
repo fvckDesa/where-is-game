@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+// firebase
+import { Timestamp } from "firebase/firestore";
 
 export const coordType = PropTypes.exact({
   x: PropTypes.number,
@@ -17,6 +19,7 @@ export const gameType = PropTypes.exact({
   name: PropTypes.string,
   image: PropTypes.string,
   id: PropTypes.string,
+  createdAt: PropTypes.instanceOf(Timestamp),
 });
 
 export const htmlElementType = PropTypes.instanceOf(HTMLElement);
