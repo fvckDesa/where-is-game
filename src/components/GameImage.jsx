@@ -1,6 +1,6 @@
 // types
 import PropTypes from "prop-types";
-import { htmlElementType, imageElementType, reactRefType } from "@types";
+import { htmlElementType, reactRefType } from "@types";
 // hooks
 import { useState, useEffect, forwardRef } from "react";
 
@@ -60,7 +60,6 @@ GameImage.propTypes = {
   onResize: PropTypes.func,
   x: PropTypes.number,
   y: PropTypes.number,
-  ref: reactRefType(imageElementType).isRequired,
 };
 
 export default GameImage;
