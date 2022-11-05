@@ -13,6 +13,7 @@ import DropImage from "@components/DropImage";
 // assets
 import Image from "@assets/Image.svg";
 import ImageIllustration from "@assets/imageIllustration.svg";
+import PopUp from "@src/components/PopUp";
 
 const defaultCharacter = {
   name: "",
@@ -21,7 +22,11 @@ const defaultCharacter = {
 };
 
 function Create() {
-  const [formError, setFormError] = useState();
+  const [formError, setFormError] = useState({
+    message: "Error",
+    type: "",
+    isLunching: null,
+  });
   const [numCharacter, setNumCharacter] = useState(0);
   const [characters, setCharacters] = useState(
     new Array(3).fill({ ...defaultCharacter })
@@ -39,7 +44,7 @@ function Create() {
   }, [image.file]);
 
   useEffect(() => {
-    setFormError(null);
+    setFormError((prev) => ({ ...prev, type: "", isLunching: null }));
   }, [image.file, name, characters]);
 
   function handlerOpen() {
@@ -89,16 +94,58 @@ function Create() {
     };
   }
 
+  function checkError() {
+    let newError = null;
+    // game image
+    if (!image.file) {
+      newError = { type: "image", message: "Add a game image" };
+      // game name
+    } else if (!name) {
+      newError = {
+        type: "name",
+        message: "Add a name for your game",
+      };
+      // characters
+    } else {
+      for (const i in characters) {
+        const numCharacter = i == 0 ? "first" : i == 1 ? "second" : "third";
+        const { name, image, coords } = characters[i];
+        if (!name) {
+          newError = {
+            type: `character${i}`,
+            message: `Add a name for ${numCharacter} character`,
+          };
+          break;
+        } else if (!image.file) {
+          newError = {
+            type: `character${i}`,
+            message: `Add an image for ${numCharacter} character`,
+          };
+          break;
+        } else if (!coords.x || !coords.y) {
+          newError = {
+            type: `character${i}`,
+            message: `Set position of ${numCharacter} character in image`,
+          };
+          break;
+        }
+      }
+    }
+
+    if (newError) {
+      setFormError({ ...newError, isLunching: true });
+      return true;
+    }
+
+    return false;
+  }
+
   async function handlerSubmit(e) {
     e.preventDefault();
 
-    if (!image.file) return setFormError("image");
-    if (!name) return setFormError("name");
-    for (const i in characters) {
-      const { name, image, coords } = characters[i];
-      if (!name || !image.file || coords.x == null || coords.y == null)
-        return setFormError(`character${i}`);
-    }
+    const isError = checkError();
+
+    if (isError) return;
 
     const gameId = await createGame({
       name,
@@ -131,10 +178,19 @@ function Create() {
   return (
     <div className="h-[90%] p-10 pt-4 flex justify-center gap-4">
       <DropImage
-        className="flex-[0.8]"
+        className="flex-[0.8] relative"
         dragOverClass="dragOver"
         onDrop={handlerDrop}
       >
+        <PopUp
+          className="bg-red-600"
+          active={formError?.isLunching}
+          message={formError.message}
+          onClose={() =>
+            setFormError((prev) => ({ ...prev, isLunching: null }))
+          }
+          ms={3000}
+        />
         <div
           ref={containerRef}
           className="h-full w-full overflow-y-scroll overflow-x-hidden relative z-0"
@@ -177,7 +233,9 @@ function Create() {
         <CreateField label={"Game Image"}>
           <div
             className={`flex items-center gap-4 px-2 py-1 rounded border-2 ${
-              formError === "image" ? "border-red-600" : "border-transparent"
+              formError.type === "image"
+                ? "border-red-600"
+                : "border-transparent"
             } transition-all duration-300 cursor-pointer hover:bg-[hsla(0,0%,100%,0.2)]`}
             onClick={handlerOpen}
           >
@@ -195,7 +253,7 @@ function Create() {
         <CreateField label={"Game name"}>
           <input
             className={`text-tiber p-1 rounded border-2 ${
-              formError === "name" ? "border-red-600" : ""
+              formError.type === "name" ? "border-red-600" : ""
             }`}
             placeholder="Name..."
             type="text"
@@ -212,7 +270,7 @@ function Create() {
                 isSelected={numCharacter === i}
                 onChange={handlerCharacterChange(i)}
                 onSelect={handlerSelect(i)}
-                hasError={formError === `character${i}`}
+                hasError={formError.type === `character${i}`}
               />
             ))}
           </ul>

@@ -1,7 +1,7 @@
 // components
 import GameNavbar from "@components/GameNavbar";
 import GameOver from "@components/GameOver";
-import SelectPopUp from "@components/SelectPopUp";
+import PopUp from "@components/PopUp";
 import GameImage from "@components/GameImage";
 import DropDown from "@components/DropDown";
 import SelectedPoint from "@components/SelectedPoint";
@@ -69,7 +69,12 @@ function Game() {
     <div className="h-[90%] overflow-hidden relative">
       <GameNavbar characters={game.characters} timer={timer} />
       <div className="h-[90%] w-full relative">
-        <SelectPopUp isCorrect={isCorrect} onClose={handlerPopUpClose} />
+        <PopUp
+          className={isCorrect ? "bg-green-500" : "bg-red-500"}
+          message={isCorrect ? "nice" : "character is not here"}
+          active={isCorrect}
+          onClose={handlerPopUpClose}
+        />
         <div
           ref={containerRef}
           className="h-full w-full px-[60px] pb-[60px] overflow-y-scroll relative z-0"
