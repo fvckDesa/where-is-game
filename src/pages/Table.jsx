@@ -1,5 +1,5 @@
 // hooks
-import { useLeaderboard } from "@hooks/useLeaderboard";
+import { useLeaderboard } from "@src/hooks";
 import { useParams } from "react-router-dom";
 // utils
 import { formatTimer } from "@src/utils";

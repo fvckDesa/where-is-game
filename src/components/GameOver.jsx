@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // firebase
-import { setGameScore } from "@appFirebase/database";
+import { setGameScore } from "@src/firebase/database";
 // utils
-import { formatTimer } from "@utils";
+import { formatTimer } from "@src/utils";
 
 function GameOver({ score }) {
   const [name, setName] = useState("");

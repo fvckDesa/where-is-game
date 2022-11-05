@@ -1,18 +1,18 @@
 // components
-import GameNavbar from "@components/GameNavbar";
-import GameOver from "@components/GameOver";
-import PopUp from "@components/PopUp";
-import GameImage from "@components/GameImage";
-import DropDown from "@components/DropDown";
-import SelectedPoint from "@components/SelectedPoint";
+import {
+  GameNavbar,
+  GameOver,
+  PopUp,
+  GameImage,
+  DropDown,
+  SelectedPoint,
+} from "@src/components";
 // utils
-import { createCoordInRange } from "@utils";
+import { createCoordInRange } from "@src/utils";
 // hooks
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGame } from "@hooks/useGame";
-import { useTimer } from "@hooks/useTimer";
-import { useGameImage } from "@hooks/useGameImage";
+import { useGame, useTimer, useGameImage } from "@src/hooks";
 
 function Game() {
   // game image

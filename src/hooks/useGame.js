@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getGameFromId } from "@appFirebase/database";
+import { getGameFromId } from "@src/firebase/database";
 
 export function useGame(gameId) {
   const [game, setGame] = useState();

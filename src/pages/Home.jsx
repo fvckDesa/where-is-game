@@ -1,5 +1,7 @@
-import { useAllGames } from "@hooks/useAllGames";
-import GameCard from "@components/GameCard";
+// components
+import { GameCard } from "@src/components";
+// hooks
+import { useAllGames } from "@src/hooks";
 
 function Home() {
   const games = useAllGames();

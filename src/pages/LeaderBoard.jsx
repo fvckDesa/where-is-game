@@ -1,7 +1,7 @@
 // hooks
-import { useAllGames } from "@hooks/useAllGames";
+import { useAllGames } from "@src/hooks";
 // components
-import GameCard from "@components/GameCard";
+import { GameCard } from "@src/components";
 import { Outlet, useParams } from "react-router-dom";
 
 function LeaderBoard() {

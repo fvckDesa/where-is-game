@@ -1,6 +1,6 @@
 // types
 import PropTypes from "prop-types";
-import { reactChildrenType } from "@types";
+import { reactChildrenType } from "@src/types";
 
 function CreateField({ label, children }) {
   return (

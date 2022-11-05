@@ -1,11 +1,11 @@
 // types
 import PropTypes from "prop-types";
-import { gameType } from "@types";
+import { gameType } from "@src/types";
 // hooks
-import { useCharacters } from "@hooks/useCharacters";
+import { useCharacters } from "@src/hooks/useCharacters";
 // components
 import { Link } from "react-router-dom";
-import Character from "@components/Character";
+import Character from "@src/components/Character";
 
 function GameCard({ game: { id, name, image }, baseUrl, isActive = false }) {
   const characters = useCharacters(id);

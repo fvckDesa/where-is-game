@@ -1,7 +1,7 @@
 // hooks
 import { useState, useEffect } from "react";
 // firebase
-import { gamesQuery, formatDocuments } from "@appFirebase/database";
+import { gamesQuery, formatDocuments } from "@src/firebase/database";
 import { onSnapshot } from "firebase/firestore";
 
 export function useAllGames() {

@@ -4,14 +4,7 @@
     "target": "es6",
     "baseUrl": "./",
     "paths": {
-      "@src/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@appFirebase/*": ["./src/firebase/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@types/*": ["./src/types/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@src/*": ["./src/*"]
     }
   },
   "exclude": ["node_modules"],

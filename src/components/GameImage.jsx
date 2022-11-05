@@ -1,6 +1,6 @@
 // types
 import PropTypes from "prop-types";
-import { htmlElementType, reactRefType } from "@types";
+import { htmlElementType, reactRefType } from "@src/types";
 // hooks
 import { useState, useEffect, forwardRef } from "react";
 

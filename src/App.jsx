@@ -1,15 +1,16 @@
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 // components
 import { Routes, Route } from "react-router-dom";
-import Navbar from "@components/Navbar";
-import Loader from "@components/Loader";
+import { Navbar, Loader } from "@src/components";
 // lazy components
-const Home = lazy(() => import("@pages/Home"));
-const Game = lazy(() => import("@pages/Game"));
-const LeaderBoard = lazy(() => import("@pages/LeaderBoard"));
-const Table = lazy(() => import("@pages/Table"));
-const LeaderBoardRoot = lazy(() => import("@pages/LeaderBoardRoot"));
-const Create = lazy(() => import("@pages/Create"));
+import {
+  Home,
+  Game,
+  LeaderBoard,
+  Table,
+  LeaderBoardRoot,
+  Create,
+} from "@src/pages";
 
 function App() {
   return (

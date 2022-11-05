@@ -1,10 +1,10 @@
 // types
 import PropTypes from "prop-types";
-import { characterType } from "@types";
+import { characterType } from "@src/types";
 // utils
-import { formatTimer } from "@utils";
+import { formatTimer } from "@src/utils";
 // components
-import Character from "@components/Character";
+import Character from "@src/components/Character";
 
 function GameNavbar({ characters, timer }) {
   return (

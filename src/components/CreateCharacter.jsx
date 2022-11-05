@@ -6,7 +6,7 @@ import DropImage from "./DropImage";
 // hooks
 import { useEffect, useRef } from "react";
 // assets
-import EmptyCharacter from "@assets/EmptyCharacter.svg";
+import EmptyCharacter from "@src/assets/EmptyCharacter.svg";
 
 function CreateCharacter({
   character,

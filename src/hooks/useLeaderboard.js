@@ -1,7 +1,10 @@
 // hooks
 import { useState, useEffect } from "react";
 // firebase
-import { createLeaderboardQuery, formatDocuments } from "@appFirebase/database";
+import {
+  createLeaderboardQuery,
+  formatDocuments,
+} from "@src/firebase/database";
 import { onSnapshot } from "firebase/firestore";
 
 export function useLeaderboard(gameId) {

@@ -1,19 +1,21 @@
 // hooks
-import { useGameImage } from "@hooks/useGameImage";
+import { useGameImage } from "@src/hooks/useGameImage";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // firebase
-import { createGame, addCharacter } from "@appFirebase/database";
+import { createGame, addCharacter } from "@src/firebase/database";
 // components
-import GameImage from "@components/GameImage";
-import SelectedPoint from "@components/SelectedPoint";
-import CreateCharacter from "@components/CreateCharacter";
-import CreateField from "@components/CreateField";
-import DropImage from "@components/DropImage";
+import {
+  GameImage,
+  SelectedPoint,
+  CreateCharacter,
+  CreateField,
+  DropImage,
+  PopUp,
+} from "@src/components";
 // assets
-import Image from "@assets/Image.svg";
-import ImageIllustration from "@assets/imageIllustration.svg";
-import PopUp from "@src/components/PopUp";
+import Image from "@src/assets/Image.svg";
+import ImageIllustration from "@src/assets/imageIllustration.svg";
 
 const defaultCharacter = {
   name: "",

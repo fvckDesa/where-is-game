@@ -1,4 +1,4 @@
-import SelectOption from "@assets/selectOption.svg";
+import SelectOption from "@src/assets/selectOption.svg";
 
 function LeaderBoardRoot() {
   return (

@@ -1,7 +1,7 @@
 // types
 import PropTypes from "prop-types";
 // assets
-import Point from "@assets/point.svg";
+import Point from "@src/assets/point.svg";
 
 function SelectedPoint({ x, y }) {
   return (

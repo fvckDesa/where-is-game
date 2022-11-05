@@ -1,8 +1,8 @@
 // types
 import PropTypes from "prop-types";
-import { characterType } from "@types";
+import { characterType } from "@src/types";
 // components
-import Character from "@components/Character";
+import Character from "@src/components/Character";
 
 function DropDown({ characters, onSelect, onClose, x, y }) {
   return (
