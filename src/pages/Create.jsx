@@ -166,8 +166,8 @@ function Create() {
       >
         <CreateField label={"Game Image"}>
           <div
-            className={`flex items-center gap-4 px-2 py-1 rounded border-2 border-transparent ${
-              formError === "image" ? "border-red-600" : ""
+            className={`flex items-center gap-4 px-2 py-1 rounded border-2 ${
+              formError === "image" ? "border-red-600" : "border-transparent"
             } transition-all duration-300 cursor-pointer hover:bg-[hsla(0,0%,100%,0.2)]`}
             onClick={handlerOpen}
           >
