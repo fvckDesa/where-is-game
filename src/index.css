@@ -4,6 +4,7 @@
 
 * {
   box-sizing: border-box;
+  outline: none;
 }
 
 @layer components {
@@ -23,5 +24,9 @@
 
   .carousel > * {
     @apply shrink-0 snap-center;
+  }
+
+  .dragOver .drop {
+    @apply border-white;
   }
 }

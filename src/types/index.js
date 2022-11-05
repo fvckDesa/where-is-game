@@ -18,3 +18,10 @@ export const gameType = PropTypes.exact({
   image: PropTypes.string,
   id: PropTypes.string,
 });
+
+export const htmlElementType = PropTypes.instanceOf(HTMLElement);
+
+export const reactChildrenType = PropTypes.oneOfType([
+  PropTypes.arrayOf(PropTypes.node),
+  PropTypes.node,
+]);

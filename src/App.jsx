@@ -9,6 +9,7 @@ const Game = lazy(() => import("@pages/Game"));
 const LeaderBoard = lazy(() => import("@pages/LeaderBoard"));
 const Table = lazy(() => import("@pages/Table"));
 const LeaderBoardRoot = lazy(() => import("@pages/LeaderBoardRoot"));
+const Create = lazy(() => import("@pages/Create"));
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game/:id" element={<Game />} />
+          <Route path="/create" element={<Create />} />
           <Route path="/leaderboard" element={<LeaderBoard />}>
             <Route index element={<LeaderBoardRoot />} />
             <Route path=":id" element={<Table />} />

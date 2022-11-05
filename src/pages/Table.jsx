@@ -16,7 +16,7 @@ function Table() {
         <div>Date</div>
       </li>
       {leaderboard.map(({ id, name, score, date }, i) => (
-        <li key={id} className="tableItem">
+        <li key={id} className="tableItem border-2 border-t-0 border-slate-600">
           <div>{i + 1}</div>
           <div>{name}</div>
           <div>{formatTimer(score)}</div>
