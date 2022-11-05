@@ -152,11 +152,21 @@ function Create() {
               {x && y && <SelectedPoint x={x} y={y} />}
             </GameImage>
           ) : (
-            <img
-              className="drop w-1/2 aspect-square p-10 border-4 border-transparent border-dashed rounded-xl"
-              src={ImageIllustration}
-              alt="illustration with images folder"
-            />
+            <div
+              className="flex flex-col justify-center items-center w-full h-full cursor-pointer group"
+              onClick={handlerOpen}
+            >
+              <div className="drop w-1/2 p-10 border-4 border-transparent border-dashed rounded-xl group-hover:border-white">
+                <img
+                  className="mb-4"
+                  src={ImageIllustration}
+                  alt="illustration with images folder"
+                />
+                <p className="text-center font-semibold text-2xl text-tiber">
+                  Select or drop an image that it contains your characters
+                </p>
+              </div>
+            </div>
           )}
         </div>
       </DropImage>
