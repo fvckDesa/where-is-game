@@ -6,7 +6,7 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter basename="/where-is-game">
+    <BrowserRouter basename={import.meta.env.PROD ? "/where-is-game" : "/"}>
       <App />
     </BrowserRouter>
   </React.StrictMode>
