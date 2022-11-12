@@ -8,7 +8,7 @@ function LeaderBoardRoot() {
         src={SelectOption}
         alt="select option illustration"
       />
-      <h1 className="text-xl text-tiber font-semibold">
+      <h1 className="text-xl text-tiber-500 font-semibold">
         Select one game for see its leaderboard
       </h1>
     </div>

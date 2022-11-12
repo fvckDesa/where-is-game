@@ -5,7 +5,17 @@ module.exports = {
     extend: {
       colors: {
         alabaster: "#efeee5",
-        tiber: "#274546",
+        tiber: {
+          100: "#d4dada",
+          200: "#a9b5b5",
+          300: "#7d8f90",
+          400: "#526a6b",
+          500: "#274546",
+          600: "#1f3738",
+          700: "#17292a",
+          800: "#101c1c",
+          900: "#080e0e",
+        },
       },
       cursor: {
         gamePointer: `url(/cursor.svg) 50 50, pointer`,

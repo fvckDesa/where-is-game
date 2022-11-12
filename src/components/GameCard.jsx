@@ -12,7 +12,7 @@ function GameCard({ game: { id, name, image }, baseUrl, isActive = false }) {
   return (
     <li
       key={id}
-      className="flex justify-center items-center w-[250px] h-[300px] overflow-hidden relative rounded-xl cursor-pointer group bg-tiber"
+      className="flex justify-center items-center w-[250px] h-[300px] overflow-hidden relative rounded-xl cursor-pointer group bg-tiber-500"
     >
       <Link className="w-full h-full" to={`/${baseUrl}/${id}`}>
         <img

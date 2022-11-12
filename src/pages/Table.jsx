@@ -9,7 +9,7 @@ function Table() {
   const leaderboard = useLeaderboard(gameId);
   return (
     <ul className="w-full h-full overflow-y-auto relative">
-      <li className="tableItem sticky top-0 left-0 bg-tiber text-white">
+      <li className="tableItem sticky top-0 left-0 bg-tiber-500 text-white">
         <div>Pos</div>
         <div>Name</div>
         <div>Score</div>

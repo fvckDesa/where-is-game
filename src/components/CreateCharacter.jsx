@@ -74,7 +74,7 @@ function CreateCharacter({
             />
           </div>
           <input
-            className="text-tiber p-1 rounded"
+            className="text-tiber-500 p-1 rounded"
             type="text"
             placeholder="Character name..."
             value={name}
