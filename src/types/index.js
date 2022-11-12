@@ -20,6 +20,7 @@ export const gameType = PropTypes.exact({
   image: PropTypes.string,
   id: PropTypes.string,
   createdAt: PropTypes.instanceOf(Timestamp),
+  user: PropTypes.string,
 });
 
 export const htmlElementType = PropTypes.instanceOf(HTMLElement);

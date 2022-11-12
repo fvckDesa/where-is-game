@@ -2,8 +2,10 @@
 import { useGameImage } from "@src/hooks/useGameImage";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "@src/contexts/UserProvider";
 // firebase
-import { createGame, addCharacter } from "@src/firebase/database";
+import { createGame, addCharacter } from "@database/games";
+import { userCreateGame } from "@database/users";
 // components
 import {
   GameImage,
@@ -13,6 +15,8 @@ import {
   DropImage,
   PopUp,
 } from "@src/components";
+// hoc
+import withAuth from "@src/hoc/withAuth";
 // assets
 import Image from "@src/assets/Image.svg";
 import ImageIllustration from "@src/assets/imageIllustration.svg";
@@ -24,6 +28,7 @@ const defaultCharacter = {
 };
 
 function Create() {
+  const { user } = useUserContext();
   const [formError, setFormError] = useState({
     message: "Error",
     type: "",
@@ -154,18 +159,23 @@ function Create() {
       image: image.file,
     });
 
-    for (const { name, image, coords } of characters) {
-      const width = imageRef.current.scrollWidth;
-      const height = imageRef.current.scrollHeight;
-      await addCharacter(
-        {
-          name,
-          image: image.file,
-          coords: { x: coords.x / width, y: coords.y / height },
-        },
-        gameId
-      );
-    }
+    const width = imageRef.current.scrollWidth;
+    const height = imageRef.current.scrollHeight;
+
+    await Promise.all(
+      characters.map(({ name, image, coords }) =>
+        addCharacter(
+          {
+            name,
+            image: image.file,
+            coords: { x: coords.x / width, y: coords.y / height },
+          },
+          gameId
+        )
+      )
+    );
+
+    await userCreateGame(user.id, gameId);
 
     navigate("/");
   }
@@ -220,7 +230,7 @@ function Create() {
                   src={ImageIllustration}
                   alt="illustration with images folder"
                 />
-                <p className="text-center font-semibold text-2xl text-tiber">
+                <p className="text-center font-semibold text-2xl text-tiber-500">
                   Select or drop an image that it contains your characters
                 </p>
               </div>
@@ -229,7 +239,7 @@ function Create() {
         </div>
       </DropImage>
       <form
-        className="flex-[0.2] flex flex-col gap-4 text-white bg-tiber rounded-xl p-4"
+        className="flex-[0.2] flex flex-col gap-4 text-white bg-tiber-500 rounded-xl p-4"
         onSubmit={handlerSubmit}
       >
         <CreateField label={"Game Image"}>
@@ -254,7 +264,7 @@ function Create() {
         </CreateField>
         <CreateField label={"Game name"}>
           <input
-            className={`text-tiber p-1 rounded border-2 ${
+            className={`text-tiber-500 p-1 rounded border-2 ${
               formError.type === "name" ? "border-red-600" : ""
             }`}
             placeholder="Name..."
@@ -285,4 +295,4 @@ function Create() {
   );
 }
 
-export default Create;
+export default withAuth(Create);

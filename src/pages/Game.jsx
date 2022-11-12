@@ -1,7 +1,6 @@
 // components
 import {
   GameNavbar,
-  GameOver,
   PopUp,
   GameImage,
   DropDown,
@@ -10,9 +9,14 @@ import {
 // utils
 import { createCoordInRange } from "@src/utils";
 // hooks
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useGame, useTimer, useGameImage } from "@src/hooks";
+import { useUserContext } from "@src/contexts/UserProvider";
+// hoc
+import withAuth from "@src/hoc/withAuth";
+// firebase
+import { setGameScore } from "@database/games";
 
 function Game() {
   // game image
@@ -26,6 +30,16 @@ function Game() {
   const { id: gameId } = useParams();
   const { game, isGameOver, setFound } = useGame(gameId);
   const timer = useTimer(isGameOver);
+  // user
+  const { user } = useUserContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isGameOver) {
+      setGameScore(gameId, user.name, timer);
+      navigate(`/leaderboard/${gameId}`);
+    }
+  }, [isGameOver]);
 
   function handlerPopUpClose() {
     setIsCorrect(null);
@@ -102,9 +116,8 @@ function Game() {
           </GameImage>
         </div>
       </div>
-      {isGameOver && <GameOver score={timer} />}
     </div>
   );
 }
 
-export default Game;
+export default withAuth(Game);

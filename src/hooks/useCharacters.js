@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 // firebase
 import { onSnapshot } from "firebase/firestore";
-import { createCharactersQuery, formatDocuments } from "@src/firebase/database";
+import { formatDocuments } from "@database/database";
+import { createCharactersQuery } from "@database/games";
 
 export function useCharacters(gameId) {
   const [characters, setCharacters] = useState([]);

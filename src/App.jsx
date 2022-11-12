@@ -10,6 +10,9 @@ import {
   Table,
   LeaderBoardRoot,
   Create,
+  User,
+  SignIn,
+  SignUp,
 } from "@src/pages";
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
             <Route index element={<LeaderBoardRoot />} />
             <Route path=":id" element={<Table />} />
           </Route>
+          <Route path="/user" element={<User />} />
+          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/signUp" element={<SignUp />} />
         </Routes>
       </Suspense>
     </div>

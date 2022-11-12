@@ -1,11 +1,9 @@
 // hooks
 import { useState, useEffect } from "react";
 // firebase
-import {
-  createLeaderboardQuery,
-  formatDocuments,
-} from "@src/firebase/database";
 import { onSnapshot } from "firebase/firestore";
+import { formatDocuments } from "@database/database";
+import { createLeaderboardQuery } from "@database/games";
 
 export function useLeaderboard(gameId) {
   const [leaderboard, setLeaderboard] = useState([]);
