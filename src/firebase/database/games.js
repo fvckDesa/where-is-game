@@ -1,7 +1,5 @@
-import { app } from "./firebase";
-import { uploadCharacterImage, uploadGameImage } from "./storage";
+import { db, formatDocuments } from "./database";
 import {
-  getFirestore,
   addDoc,
   collection,
   updateDoc,
@@ -13,23 +11,34 @@ import {
   serverTimestamp,
   orderBy,
 } from "firebase/firestore";
+import { uploadCharacterImage, uploadGameImage } from "@src/firebase/storage";
+import { auth, isUserSignedIn } from "@src/firebase/auth";
 
-export const db = getFirestore(app);
 export const gamesQuery = query(
-  collection(db, "game"),
+  collection(db, "games"),
   orderBy("createdAt", "asc")
 );
 
-export function formatDocuments(docs) {
-  return docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+export function createLeaderboardQuery(gameId) {
+  return query(
+    collection(db, "games", gameId, "leaderboard"),
+    orderBy("score", "asc")
+  );
+}
+
+export function createCharactersQuery(gameId) {
+  return query(collection(db, "games", gameId, "characters"), limit(3));
 }
 
 export async function createGame(game) {
+  if (!isUserSignedIn())
+    throw new Error("For create game user must be sign in");
   try {
-    const gameRef = await addDoc(collection(db, "game"), {
+    const gameRef = await addDoc(collection(db, "games"), {
       ...game,
       image: "",
       createdAt: serverTimestamp(),
+      user: auth.currentUser.uid,
     });
 
     const imageUrl = await uploadGameImage(gameRef.id, game.image);
@@ -45,7 +54,7 @@ export async function createGame(game) {
 export async function addCharacter(character, gameId) {
   try {
     const characterRef = await addDoc(
-      collection(db, "game", gameId, "characters"),
+      collection(db, "games", gameId, "characters"),
       {
         ...character,
         image: "",
@@ -67,7 +76,7 @@ export async function addCharacter(character, gameId) {
 }
 
 export async function getGameFromId(gameId) {
-  const game = await getDoc(doc(db, "game", gameId));
+  const game = await getDoc(doc(db, "games", gameId));
   if (!game.exists()) return null;
 
   const charactersQuery = createCharactersQuery(gameId);
@@ -82,20 +91,9 @@ export async function getGameFromId(gameId) {
 }
 
 export async function setGameScore(gameId, name, score) {
-  await addDoc(collection(db, "game", gameId, "leaderboard"), {
+  await addDoc(collection(db, "games", gameId, "leaderboard"), {
     name,
     score,
     date: serverTimestamp(),
   });
-}
-
-export function createLeaderboardQuery(gameId) {
-  return query(
-    collection(db, "game", gameId, "leaderboard"),
-    orderBy("score", "asc")
-  );
-}
-
-export function createCharactersQuery(gameId) {
-  return query(collection(db, "game", gameId, "characters"), limit(3));
 }

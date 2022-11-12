@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@src": path.resolve(__dirname, "src"),
+      "@database": path.resolve(__dirname, "src/firebase/database"),
     },
   },
   base: mode === "development" ? "/" : "/where-is-game/",
