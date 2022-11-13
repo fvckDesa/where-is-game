@@ -8,6 +8,9 @@ import {
   fetchSignInMethodsForEmail,
   setPersistence,
   browserSessionPersistence,
+  GithubAuthProvider,
+  linkWithPopup,
+  sendEmailVerification,
 } from "firebase/auth";
 import { app } from "./firebase";
 import { createFirestoreUser } from "./database/users";
@@ -18,6 +21,8 @@ function getProvider(name) {
   switch (name) {
     case "google":
       return new GoogleAuthProvider();
+    case "github":
+      return new GithubAuthProvider();
     default:
       throw new Error(`${name} provider isn't active`);
   }
@@ -38,6 +43,7 @@ export async function createUser({ email, password, name, profilePicture }) {
       name: name ?? user.displayName,
       profilePicture: profilePicture ?? user.photoURL,
     });
+    await sendEmailVerification(user);
   } catch (error) {
     throw new Error(error);
   }
@@ -58,8 +64,8 @@ export async function signInUserWithEmailAndPassword(
 }
 
 export async function signInWithProvider(name) {
+  const provider = getProvider(name);
   try {
-    const provider = getProvider(name);
     const { user } = await signInWithPopup(auth, provider);
     await createFirestoreUser(user.uid, {
       email: user.email,
@@ -67,6 +73,9 @@ export async function signInWithProvider(name) {
       profilePicture: user.photoURL,
     });
   } catch (error) {
+    if (error.code === "auth/account-exists-with-different-credential") {
+      return linkWhitNewProvider(error.customData.email, provider);
+    }
     throw new Error(error);
   }
 }
@@ -82,4 +91,33 @@ export function isUserSignedIn() {
 export async function isEmailInUsed(email) {
   const methods = await fetchSignInMethodsForEmail(auth, email);
   return methods.length === 0;
+}
+
+async function linkWhitNewProvider(email, newProvider) {
+  const providerName = (
+    await fetchSignInMethodsForEmail(auth, email)
+  )[0].replace(".com", "");
+
+  let user;
+
+  if (providerName === "password") {
+    user = await getEmailPasswordUser(email);
+  } else {
+    user = (await signInWithPopup(auth, getProvider(providerName))).user;
+  }
+  return linkWithPopup(user, newProvider);
+}
+
+async function getEmailPasswordUser(email) {
+  let user;
+  do {
+    try {
+      const password = prompt(`Enter password for user ${email}`);
+      user = (await signInWithEmailAndPassword(auth, email, password)).user;
+    } catch (error) {
+      alert("Wrong password");
+    }
+  } while (user == undefined);
+
+  return user;
 }
