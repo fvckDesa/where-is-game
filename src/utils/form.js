@@ -28,7 +28,7 @@ export function getSignInErrorMessage(message) {
     case "auth/wrong-password":
       return "Wrong email or password";
     default:
-      return "Oops, there was an error signing in";
+      return "Oops, there was an error";
   }
 }
 
