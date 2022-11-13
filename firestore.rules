@@ -25,8 +25,8 @@ service cloud.firestore {
 		}
     
     match /users/{userId} {
-      allow read: if isCreator(userId);
-      allow write;
+      allow read, create;
+      allow update, delete: if isCreator(userId);
     }
   }
 }
