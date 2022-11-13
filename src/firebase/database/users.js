@@ -12,12 +12,16 @@ import { uploadUserImage } from "@src/firebase/storage";
 
 export const usersQuery = query(collection(db, "users"));
 
+export function createUserRef(id) {
+  return doc(db, "users", id);
+}
+
 export async function createFirestoreUser(
   userId,
   { email, name, profilePicture }
 ) {
   try {
-    const userRef = doc(db, "users", userId);
+    const userRef = createUserRef(userId);
     await setDoc(userRef, {
       email,
       name,
@@ -37,12 +41,12 @@ export async function createFirestoreUser(
 }
 
 export async function getUser(id) {
-  const user = await getDoc(doc(db, "users", id));
+  const user = await getDoc(createUserRef(id));
   return user.exists() ? { ...user.data(), id: user.id } : null;
 }
 
 export async function userCreateGame(userId, gameId) {
-  await updateDoc(doc(db, "users", userId), {
+  await updateDoc(createUserRef(userId), {
     games: arrayUnion(gameId),
   });
 }

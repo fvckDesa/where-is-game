@@ -14,7 +14,7 @@ import {
   isUserSignedIn,
 } from "@src/firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { usersQuery, getUser } from "@database/users";
+import { createUserRef } from "@database/users";
 import { onSnapshot } from "firebase/firestore";
 
 const Context = createContext();
@@ -23,27 +23,19 @@ function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    return onAuthStateChanged(auth, async (authUser) => {
+    return onAuthStateChanged(auth, (authUser) => {
       if (authUser == null) return setUser(null);
-      const user = await getUser(authUser.uid);
-      if (!user) {
-        throw new Error("User not exist");
-      }
       setUser({
         authUser,
-        ...user,
+        id: authUser.uid,
       });
     });
   }, []);
 
   useEffect(() => {
-    if (user == null) return;
-    return onSnapshot(usersQuery, (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.doc.id === user.id) {
-          setUser((prev) => ({ ...prev, ...change.doc.data() }));
-        }
-      });
+    if (!user) return;
+    return onSnapshot(createUserRef(user.id), (doc) => {
+      setUser((prev) => ({ ...prev, ...doc.data() }));
     });
   }, [user?.id]);
 
