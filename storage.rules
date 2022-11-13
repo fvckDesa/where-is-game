@@ -9,8 +9,8 @@ service firebase.storage {
       return isAuth() && request.auth.uid == id;
     }
 
-    function isGameCreator(id) {
-      return firestore.get(/databases/(default)/documents/games/$(id)).user == id;
+    function isGameCreator(gameId) {
+      return isCreator(firestore.get(/databases/(default)/documents/games/$(gameId)).data.user);
     }
 
     function isImage() {
@@ -29,7 +29,7 @@ service firebase.storage {
 
     match /{userId}/{gameId}/{characterId}/{fileName} {
       allow read;
-      allow write: if isAuth() && isGameCreator(gameId) && isImage();
+      allow write: if isGameCreator(gameId) && isImage();
     }
   }
 }

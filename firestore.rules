@@ -9,18 +9,24 @@ service cloud.firestore {
       return isAuth() && request.auth.uid == id;
     }
 
+    function isGameCreator(gameId) {
+      return isCreator(get(/databases/$(database)/documents/games/$(gameId)).data.user);
+    }
+
     match /games/{gameId} {
       allow read;
       allow create: if isAuth();
+      allow update, delete: if isGameCreator(gameId);
 
       match /leaderboard/{scoreId} {
         allow read;
         allow create: if isAuth();
+        allow update, delete: if false;
       }
 
       match /characters/{characterId} {
         allow read;
-        allow create: if isAuth();
+        allow write: if isGameCreator(gameId);
       }
 		}
     
