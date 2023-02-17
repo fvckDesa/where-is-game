@@ -1,1 +1,0 @@
-import{r as e}from"./index.4fcf8288.js";function c(t){const[{x:s,y:o},r]=e.exports.useState(t),a=e.exports.useRef(),n=e.exports.useRef();return{x:s,y:o,setCoords:r,containerRef:a,imageRef:n}}export{c as u};
