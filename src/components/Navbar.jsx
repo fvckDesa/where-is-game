@@ -27,7 +27,7 @@ function Navbar() {
 
   return (
     <header className="flex justify-between px-7 py-5 h-[10%]">
-      <h1>Where is?</h1>
+      <h1 className="text-lg font-bold">Where is?</h1>
       <nav className="flex items-center gap-1">
         {navItems.map(({ name, to, end }) => (
           <NavLink key={name} to={to} end={end}>

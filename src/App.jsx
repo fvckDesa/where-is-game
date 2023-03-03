@@ -15,6 +15,7 @@ import {
   Profile,
   Authentication,
   ConfirmAuth,
+  NotFound,
 } from "@src/pages";
 import { SettingsLayout } from "@src/layouts";
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="authentication" element={<Authentication />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </div>
