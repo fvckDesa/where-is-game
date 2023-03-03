@@ -9,6 +9,7 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 import { uploadUserImage } from "@src/firebase/storage";
+import { updateUserEmail } from "@src/firebase/auth";
 
 export const usersQuery = query(collection(db, "users"));
 
@@ -49,4 +50,13 @@ export async function userCreateGame(userId, gameId) {
   await updateDoc(createUserRef(userId), {
     games: arrayUnion(gameId),
   });
+}
+
+export async function updateUser(userId, data) {
+  const { profilePicture, ...updateData } = data;
+  if (profilePicture) {
+    updateData.profilePicture = await uploadUserImage(userId, profilePicture);
+  }
+  await updateUserEmail(updateData.email);
+  return updateDoc(createUserRef(userId), updateData);
 }

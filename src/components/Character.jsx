@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function Character({ name, image, className = "", style = {} }) {
   return (
     <div
-      className={`${className} flex justify-center items-center w-12 h-12 rounded-full border-2 border-tiber-500 bg-alabaster`}
+      className={`${className} flex justify-center items-center w-12 h-12 rounded-full border-2 border-tiber-500 bg-alabaster-500`}
       style={style}
     >
       <img

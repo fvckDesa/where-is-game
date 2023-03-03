@@ -4,7 +4,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        alabaster: "#efeee5",
+        alabaster: {
+          100: "#fcfcfa",
+          200: "#f9f8f5",
+          300: "#f5f5ef",
+          400: "#f2f1ea",
+          500: "#efeee5",
+          600: "#bfbeb7",
+          700: "#8f8f89",
+          800: "#605f5c",
+          900: "#30302e",
+        },
         tiber: {
           100: "#d4dada",
           200: "#a9b5b5",

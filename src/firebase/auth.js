@@ -11,6 +11,13 @@ import {
   GithubAuthProvider,
   linkWithPopup,
   sendEmailVerification,
+  updateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  reauthenticateWithPopup,
+  EmailAuthProvider,
+  unlink,
+  linkWithCredential,
 } from "firebase/auth";
 import { app } from "./firebase";
 import { createFirestoreUser } from "./database/users";
@@ -28,25 +35,52 @@ function getProvider(name) {
   }
 }
 
+export function getUserProviders() {
+  return auth.currentUser.providerData.map((provider) =>
+    provider.providerId.replace(".com", "")
+  );
+}
+
 export async function createUser({ email, password, name, profilePicture }) {
   if (!email) throw new Error("To create a user there must be an email");
   if (!password) throw new Error("To create a user there must be a password");
 
-  try {
-    const { user } = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    await createFirestoreUser(user.uid, {
-      email,
-      name: name ?? user.displayName,
-      profilePicture: profilePicture ?? user.photoURL,
-    });
-    await sendEmailVerification(user);
-  } catch (error) {
-    throw new Error(error);
+  const { user } = await createUserWithEmailAndPassword(auth, email, password);
+  await createFirestoreUser(user.uid, {
+    email,
+    name: name ?? user.displayName,
+    profilePicture: profilePicture ?? user.photoURL,
+  });
+  await sendEmailVerification(user);
+}
+
+export async function linkWithNewPassword(password) {
+  if (!isUserSignedIn()) {
+    throw new Error("User not logged");
   }
+  if (getUserProviders().includes("password")) {
+    throw new Error("User already has a password");
+  }
+  return linkWithCredential(
+    auth.currentUser,
+    EmailAuthProvider.credential(auth.currentUser.email, password)
+  ).then(() => console.log(auth.currentUser));
+}
+
+export function linkWithNewProvider(providerName) {
+  const provider = getProvider(providerName);
+  if (!isUserSignedIn()) {
+    throw new Error("User not logged");
+  }
+  return linkWithPopup(auth.currentUser, provider);
+}
+
+export function unlinkProvider(providerName) {
+  const provider = getProvider(providerName);
+  if (!isUserSignedIn()) {
+    throw new Error("User not logged");
+  }
+  return unlink(auth.currentUser, provider.providerId);
 }
 
 export async function signInUserWithEmailAndPassword(
@@ -54,30 +88,18 @@ export async function signInUserWithEmailAndPassword(
   password,
   remember = false
 ) {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    if (!remember) await setPersistence(auth, browserSessionPersistence);
-  } catch (error) {
-    console.error("Error: ", error);
-    throw new Error(error);
-  }
+  await signInWithEmailAndPassword(auth, email, password);
+  if (!remember) await setPersistence(auth, browserSessionPersistence);
 }
 
 export async function signInWithProvider(name) {
   const provider = getProvider(name);
-  try {
-    const { user } = await signInWithPopup(auth, provider);
-    await createFirestoreUser(user.uid, {
-      email: user.email,
-      name: user.displayName,
-      profilePicture: user.photoURL,
-    });
-  } catch (error) {
-    if (error.code === "auth/account-exists-with-different-credential") {
-      return linkWhitNewProvider(error.customData.email, provider);
-    }
-    throw new Error(error);
-  }
+  const { user } = await signInWithPopup(auth, provider);
+  await createFirestoreUser(user.uid, {
+    email: user.email,
+    name: user.displayName,
+    profilePicture: user.photoURL,
+  });
 }
 
 export async function signOutUser() {
@@ -93,31 +115,33 @@ export async function isEmailInUsed(email) {
   return methods.length === 0;
 }
 
-async function linkWhitNewProvider(email, newProvider) {
-  const providerName = (
-    await fetchSignInMethodsForEmail(auth, email)
-  )[0].replace(".com", "");
-
-  let user;
-
-  if (providerName === "password") {
-    user = await getEmailPasswordUser(email);
-  } else {
-    user = (await signInWithPopup(auth, getProvider(providerName))).user;
+export async function reauthenticateUser(passwordAuthCb) {
+  const providers = getUserProviders();
+  if (providers.includes("password")) {
+    return passwordAuthCb();
   }
-  return linkWithPopup(user, newProvider);
+
+  await reauthenticateWithPopup(auth.currentUser, getProvider(providers[0]));
 }
 
-async function getEmailPasswordUser(email) {
-  let user;
-  do {
-    try {
-      const password = prompt(`Enter password for user ${email}`);
-      user = (await signInWithEmailAndPassword(auth, email, password)).user;
-    } catch (error) {
-      alert("Wrong password");
-    }
-  } while (user == undefined);
+export async function reauthenticateWithPassword(password) {
+  if (!isUserSignedIn()) {
+    throw new Error("User not logged");
+  }
+  return reauthenticateWithCredential(
+    auth.currentUser,
+    EmailAuthProvider.credential(auth.currentUser.email, password)
+  );
+}
 
-  return user;
+export async function updateUserEmail(newEmail) {
+  if (auth.currentUser.email === newEmail) return;
+
+  await updateEmail(auth.currentUser, newEmail);
+}
+
+export async function updateUserPassword(oldPassword, newPassword) {
+  if (oldPassword === newPassword) return;
+  await reauthenticateWithPassword(oldPassword);
+  await updatePassword(auth.currentUser, newPassword);
 }

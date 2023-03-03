@@ -52,7 +52,7 @@ function Navbar() {
             >
               Sign Out
             </button>
-            <NavLink className="rounded-full" to="/users/me" end>
+            <NavLink className="rounded-full" to="/settings" end>
               {({ isActive }) => (
                 <img
                   className={`w-10 h-10 object-cover ${

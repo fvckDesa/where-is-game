@@ -2,7 +2,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
 export function useSign() {
-  const { next = "/" } = useLocation().state ?? {};
+  const { next = "/", ...rest } = useLocation().state ?? {};
   const navigate = useNavigate();
 
   function redirect() {
@@ -12,5 +12,6 @@ export function useSign() {
   return {
     redirect,
     next,
+    ...rest,
   };
 }
