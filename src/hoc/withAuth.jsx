@@ -10,7 +10,7 @@ function withAuth(Component) {
     const { isUserSignedIn } = useUserContext();
 
     if (!isUserSignedIn()) {
-      return <Navigate to="/signIn" state={{ next: location.pathname }} />;
+      return <Navigate to="/auth/signIn" state={{ next: location.pathname }} />;
     }
 
     return <Component {...props} />;

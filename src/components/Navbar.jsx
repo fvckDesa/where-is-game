@@ -19,7 +19,7 @@ function Navbar() {
   async function signOut() {
     try {
       await signOutUser();
-      navigate("/signIn", { state: { next: location.pathname } });
+      navigate("/auth/signIn", { state: { next: location.pathname } });
     } catch (error) {
       console.error(error);
     }
@@ -66,7 +66,7 @@ function Navbar() {
             </NavLink>
           </>
         ) : (
-          <NavLink to="/signIn" end>
+          <NavLink to="/auth/signIn" end>
             {({ isActive }) => (
               <div className="group px-3 py-1">
                 <span>Sign In</span>

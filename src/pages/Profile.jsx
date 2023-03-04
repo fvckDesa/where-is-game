@@ -69,7 +69,7 @@ function Profile() {
         return;
       }
       reauthenticateUser(() => {
-        navigate("/confirmAuth", {
+        navigate("/auth/confirmAuth", {
           state: {
             next: "/settings/profile",
             onAuth: bindUpdate,

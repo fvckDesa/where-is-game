@@ -12,3 +12,4 @@ export const ConfirmAuth = lazy(() => import("./ConfirmAuth"));
 export const Profile = lazy(() => import("./Profile"));
 export const Authentication = lazy(() => import("./Authentication"));
 export const NotFound = lazy(() => import("./NotFound"));
+export const Actions = lazy(() => import("./Actions"));

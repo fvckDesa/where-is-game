@@ -1,5 +1,5 @@
 // hooks
-import { useSign } from "@src/hooks";
+import { useRedirect } from "@src/hooks";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 // layout
@@ -16,7 +16,7 @@ import withoutAuth from "@src/hoc/withoutAuth";
 
 function SignIn() {
   const { signInUserWithEmailAndPassword } = useUserContext();
-  const { redirect, next } = useSign();
+  const { redirect, next } = useRedirect();
   const {
     register,
     handleSubmit,
@@ -83,7 +83,7 @@ function SignIn() {
           Not registered yet?{" "}
           <Link
             className="text-tiber-500 underline font-medium transition-colors hover:text-tiber-400"
-            to="/signUp"
+            to="/auth/signUp"
             state={{ next }}
           >
             Create an Account

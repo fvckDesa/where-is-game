@@ -18,6 +18,7 @@ import {
   EmailAuthProvider,
   unlink,
   linkWithCredential,
+  applyActionCode,
 } from "firebase/auth";
 import { app } from "./firebase";
 import { createFirestoreUser } from "./database/users";
@@ -144,4 +145,8 @@ export async function updateUserPassword(oldPassword, newPassword) {
   if (oldPassword === newPassword) return;
   await reauthenticateWithPassword(oldPassword);
   await updatePassword(auth.currentUser, newPassword);
+}
+
+export function verifyEmail(oobCode) {
+  return applyActionCode(auth, oobCode);
 }

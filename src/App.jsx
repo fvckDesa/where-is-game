@@ -16,8 +16,9 @@ import {
   Authentication,
   ConfirmAuth,
   NotFound,
+  Actions,
 } from "@src/pages";
-import { SettingsLayout } from "@src/layouts";
+import { SettingsLayout, AuthLayout } from "@src/layouts";
 
 function App() {
   return (
@@ -32,9 +33,12 @@ function App() {
             <Route index element={<LeaderBoardRoot />} />
             <Route path=":id" element={<Table />} />
           </Route>
-          <Route path="/signIn" element={<SignIn />} />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route path="/confirmAuth" element={<ConfirmAuth />} />
+          <Route path="/auth" element={<AuthLayout />}>
+            <Route path="signIn" element={<SignIn />} />
+            <Route path="signUp" element={<SignUp />} />
+            <Route path="confirmAuth" element={<ConfirmAuth />} />
+            <Route path="actions" element={<Actions />} />
+          </Route>
           <Route path="/settings" element={<SettingsLayout />}>
             <Route index element={<Navigate to="profile" />} />
             <Route path="profile" element={<Profile />} />
