@@ -1,13 +1,13 @@
+// layout
+import { SignLayout } from "@src/layouts/";
+// components
+import { SignField } from "@src/components";
+import { Link } from "react-router-dom";
 // hooks
 import { useRedirect } from "@src/hooks";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useUserContext } from "@src/contexts/UserProvider";
-// layout
-import SignLayout from "@src/layouts/SignLayout";
-// components
-import { SignField } from "@src/components";
-import { Link } from "react-router-dom";
 // firebase
 import { isEmailInUsed } from "@src/firebase/auth";
 // utils

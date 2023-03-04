@@ -1,25 +1,12 @@
 // types
 import PropTypes from "prop-types";
+import { reactChildrenType } from "@src/types";
+// layout
+import { TitleLayout } from "./";
 // hooks
 import { useUserContext } from "@src/contexts/UserProvider";
-// assets
-import Google from "@src/assets/Google.svg";
-import Github from "@src/assets/Github.svg";
-import { reactChildrenType } from "@src/types";
-import { TitleLayout } from "./";
-
-const PROVIDERS = [
-  {
-    name: "Google",
-    logo: Google,
-    provider: "google",
-  },
-  {
-    name: "Github",
-    logo: Github,
-    provider: "github",
-  },
-];
+// data
+import { PROVIDERS } from "@src/data/providers";
 
 function SignLayout({ title, redirect, children }) {
   const { signInWithProvider } = useUserContext();

@@ -1,15 +1,19 @@
-import { verifyEmail } from "@src/firebase/auth";
+// layout
 import { TitleLayout } from "@src/layouts/";
+// components
+import { Link } from "react-router-dom";
+import { Ring } from "@uiball/loaders";
+//hooks
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+// firebase
+import { verifyEmail } from "@src/firebase/auth";
+// utils
 import {
   getActionName,
   getIllustration,
   getResultText,
 } from "@src/utils/auth-actions";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
-import { Ring } from "@uiball/loaders";
 
 function Actions() {
   const [searchParams] = useSearchParams();
@@ -43,8 +47,8 @@ function Actions() {
             </span>
             <Link
               to="/"
-              replace
               className="flex justify-center items-center gap-2 w-32 p-2 rounded-lg font-semibold bg-tiber-500 text-white cursor-pointer hover:bg-tiber-600"
+              replace
             >
               Back Home
             </Link>

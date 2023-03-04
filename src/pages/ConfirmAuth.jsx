@@ -1,8 +1,10 @@
+// components
 import { SignField } from "@src/components";
-import { reauthenticateWithPassword } from "@src/firebase/auth";
+// hooks
 import { useRedirect } from "@src/hooks";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+// firebase
+import { reauthenticateWithPassword } from "@src/firebase/auth";
 
 function ConfirmAuth() {
   const [password, setPassword] = useState("");

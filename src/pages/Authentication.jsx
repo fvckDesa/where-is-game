@@ -1,10 +1,11 @@
-// components
+// layout
 import { SettingsField } from "@src/layouts";
+// components
 import { SignField } from "@src/components";
 // hooks
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-// utils
-import { includeNumber, includeUppercase } from "@src/utils/form";
+// firebase
 import {
   updateUserPassword,
   getUserProviders,
@@ -13,22 +14,10 @@ import {
   linkWithNewPassword,
   reauthenticateUser,
 } from "@src/firebase/auth";
-import Google from "@src/assets/Google.svg";
-import Github from "@src/assets/Github.svg";
-import { useState } from "react";
-
-const PROVIDERS = [
-  {
-    name: "Google",
-    logo: Google,
-    provider: "google",
-  },
-  {
-    name: "Github",
-    logo: Github,
-    provider: "github",
-  },
-];
+// data
+import { PROVIDERS } from "@src/data/providers";
+// utils
+import { includeNumber, includeUppercase } from "@src/utils/form";
 
 function Authentication() {
   const {
