@@ -2,21 +2,15 @@
 
 ## Create
 
-<div>
-  <p>Create your game</p>
-  <img alt="Create" src="https://github.com/fvckDesa/where-is-game/blob/assets/create.png" width="60%" height="30%" align="left" />
-</div>
+<p>Create your game</p>
+<img style="float:left" alt="Create" src="https://github.com/fvckDesa/where-is-game/blob/assets/create.png" width="60%" height="30%" />
 
 ## Play
 
-<div>
-  <img alt="Play" src="https://github.com/fvckDesa/where-is-game/blob/assets/play.png" width="60%"  height="30%" align="right" />
-  <p>Play and get the lowest time</p>
-</div>
+<p>Play and get the lowest time</p>
+<img alt="Play" src="https://github.com/fvckDesa/where-is-game/blob/assets/play.png" width="60%"  height="30%" />
 
 ## Compete
 
-<div>
-  <p>Compete with others people</p>
-  <img alt="Compete" src="https://github.com/fvckDesa/where-is-game/blob/assets/compete.png" width="60%"  height="30%" align="left" />
-</div>
+<p>Compete with others people</p>
+<img alt="Compete" src="https://github.com/fvckDesa/where-is-game/blob/assets/compete.png" width="60%"  height="30%" />
