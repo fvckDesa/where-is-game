@@ -2,22 +2,8 @@
 import withAuth from "@src/hoc/withAuth";
 // components
 import { Outlet, NavLink } from "react-router-dom";
-// assets
-import Profile from "@src/assets/Profile.svg";
-import Key from "@src/assets/Key.svg";
-
-const SETTINGS = [
-  {
-    name: "Profile",
-    icon: Profile,
-    to: "profile",
-  },
-  {
-    name: "Authentication",
-    icon: Key,
-    to: "authentication",
-  },
-];
+// data
+import { SETTINGS } from "@src/data/settings";
 
 function SettingsLayout() {
   return (

@@ -17,6 +17,7 @@ import {
   ConfirmAuth,
   NotFound,
   Actions,
+  PlayerGames,
 } from "@src/pages";
 import { SettingsLayout, AuthLayout } from "@src/layouts";
 
@@ -43,6 +44,7 @@ function App() {
             <Route index element={<Navigate to="profile" />} />
             <Route path="profile" element={<Profile />} />
             <Route path="authentication" element={<Authentication />} />
+            <Route path="games" element={<PlayerGames />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

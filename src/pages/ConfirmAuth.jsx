@@ -9,7 +9,7 @@ import { reauthenticateWithPassword } from "@src/firebase/auth";
 function ConfirmAuth() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { redirect, onAuth } = useRedirect();
+  const { redirect, next } = useRedirect();
 
   function handlerChange(e) {
     setPassword(e.target.value);
@@ -19,15 +19,13 @@ function ConfirmAuth() {
     e.preventDefault();
     try {
       await reauthenticateWithPassword(password);
-      await onAuth();
-      redirect();
     } catch (err) {
       setError("Wrong password");
     }
   }
 
   useEffect(() => {
-    if (!onAuth) redirect();
+    if (next === "/") redirect();
   }, []);
 
   return (

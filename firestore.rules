@@ -21,7 +21,7 @@ service cloud.firestore {
       match /leaderboard/{scoreId} {
         allow read;
         allow create: if isAuth();
-        allow update, delete: if false;
+        allow update, delete: if isGameCreator(gameId);
       }
 
       match /characters/{characterId} {

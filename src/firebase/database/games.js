@@ -1,4 +1,5 @@
 import { db, formatDocuments } from "./database";
+import { userCreateGame, userDeleteGame } from "./users";
 import {
   addDoc,
   collection,
@@ -10,8 +11,13 @@ import {
   limit,
   serverTimestamp,
   orderBy,
+  deleteDoc,
 } from "firebase/firestore";
-import { uploadCharacterImage, uploadGameImage } from "@src/firebase/storage";
+import {
+  deleteGameImages,
+  uploadCharacterImage,
+  uploadGameImage,
+} from "@src/firebase/storage";
 import { auth, isUserSignedIn } from "@src/firebase/auth";
 
 export const gamesQuery = query(
@@ -44,6 +50,7 @@ export async function createGame(game) {
     const imageUrl = await uploadGameImage(gameRef.id, game.image);
 
     await updateDoc(gameRef, { image: imageUrl });
+    await userCreateGame(auth.currentUser.uid, gameRef.id);
 
     return gameRef.id;
   } catch (error) {
@@ -96,4 +103,21 @@ export async function setGameScore(gameId, name, score) {
     score,
     date: serverTimestamp(),
   });
+}
+
+export async function deleteGame(gameId) {
+  await deleteGameImages(gameId);
+  await Promise.all(
+    (
+      await getDocs(createCharactersQuery(gameId))
+    ).docs.map((doc) => deleteDoc(doc.ref))
+  );
+
+  await Promise.all(
+    (
+      await getDocs(createLeaderboardQuery(gameId))
+    ).docs.map((doc) => deleteDoc(doc.ref))
+  );
+  await deleteDoc(doc(db, "games", gameId));
+  await userDeleteGame(auth.currentUser.uid, gameId);
 }

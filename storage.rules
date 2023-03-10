@@ -19,17 +19,20 @@ service firebase.storage {
 
     match /{userId}/{profilePicture} {
       allow read;
-      allow write: if isCreator(userId) && isImage();
+      allow create, update: if isCreator(userId) && isImage();
+      allow delete: if isCreator(userId);
     }
 
     match /{userId}/{gameId}/{fileName} {
       allow read;
-      allow write: if isAuth() && isImage();
+      allow create, update: if isGameCreator(gameId) && isImage();
+      allow delete: if isGameCreator(gameId);
     }
 
     match /{userId}/{gameId}/{characterId}/{fileName} {
       allow read;
-      allow write: if isGameCreator(gameId) && isImage();
+      allow create, update: if isGameCreator(gameId) && isImage();
+      allow delete: if isGameCreator(gameId);
     }
   }
 }

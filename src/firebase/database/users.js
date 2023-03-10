@@ -7,6 +7,7 @@ import {
   getDoc,
   doc,
   arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { uploadUserImage } from "@src/firebase/storage";
 import { updateUserEmail } from "@src/firebase/auth";
@@ -49,6 +50,12 @@ export async function getUser(id) {
 export async function userCreateGame(userId, gameId) {
   await updateDoc(createUserRef(userId), {
     games: arrayUnion(gameId),
+  });
+}
+
+export async function userDeleteGame(userId, gameId) {
+  await updateDoc(createUserRef(userId), {
+    games: arrayRemove(gameId),
   });
 }
 

@@ -5,8 +5,8 @@ export function useRedirect() {
   const { next = "/", ...rest } = useLocation().state ?? {};
   const navigate = useNavigate();
 
-  function redirect() {
-    navigate(next, { replace: true });
+  function redirect(state) {
+    navigate(next, { replace: true, state });
   }
 
   return {
