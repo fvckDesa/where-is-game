@@ -116,13 +116,14 @@ export async function isEmailInUsed(email) {
   return methods.length === 0;
 }
 
-export async function reauthenticateUser(passwordAuthCb) {
+export async function reauthenticateUser() {
   const providers = getUserProviders();
   if (providers.includes("password")) {
-    return passwordAuthCb();
+    return false;
   }
 
   await reauthenticateWithPopup(auth.currentUser, getProvider(providers[0]));
+  return true;
 }
 
 export async function reauthenticateWithPassword(password) {

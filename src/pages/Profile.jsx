@@ -48,36 +48,30 @@ function Profile() {
     }
   }, [user]);
 
-  async function update(user, data) {
-    try {
-      await updateUser(user, data);
-    } catch (error) {
-      console.error("Somethings was wrong updating user", error);
-    }
-  }
-
   async function onSubmit(data) {
-    const bindUpdate = update.bind(null, user.id, {
+    const bindData = {
       ...data,
       profilePicture: profilePicture.file,
-    });
+    };
     try {
-      await bindUpdate();
+      await updateUser(user.id, bindData);
     } catch (err) {
       if (err.code !== "auth/requires-recent-login") {
         console.error(err);
         return;
       }
-      reauthenticateUser(() => {
+      const isAuth = await reauthenticateUser();
+      if (!isAuth) {
         navigate("/auth/confirmAuth", {
           state: {
             next: "/settings/profile",
-            onAuth: bindUpdate,
+            data: bindData,
           },
         });
-      });
+        return;
+      }
 
-      await bindUpdate();
+      await updateUser(user.id, bindData);
     }
   }
 

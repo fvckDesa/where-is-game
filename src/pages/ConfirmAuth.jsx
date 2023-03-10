@@ -5,11 +5,12 @@ import { useRedirect } from "@src/hooks";
 import { useState, useEffect } from "react";
 // firebase
 import { reauthenticateWithPassword } from "@src/firebase/auth";
+import { updateUser } from "@src/firebase/database/users";
 
 function ConfirmAuth() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { redirect, next } = useRedirect();
+  const { redirect, next, data } = useRedirect();
 
   function handlerChange(e) {
     setPassword(e.target.value);
@@ -18,7 +19,9 @@ function ConfirmAuth() {
   async function handlerSubmit(e) {
     e.preventDefault();
     try {
-      await reauthenticateWithPassword(password);
+      const { user } = await reauthenticateWithPassword(password);
+      await updateUser(user.uid, data);
+      redirect();
     } catch (err) {
       setError("Wrong password");
     }
