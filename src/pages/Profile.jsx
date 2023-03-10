@@ -1,5 +1,5 @@
 // components
-import { DropImage, SignField } from "@src/components";
+import { DropImage, SignField, ButtonLoader } from "@src/components";
 import { SettingsField } from "@src/layouts";
 // hooks
 import { useForm } from "react-hook-form";
@@ -18,7 +18,7 @@ function Profile() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
   } = useForm();
   const profilePictureRef = useRef();
@@ -137,12 +137,12 @@ function Profile() {
         </div>
       </main>
       <footer className="flex mt-8">
-        <button
+        <ButtonLoader
+          isLoading={isSubmitting}
           className="flex-[0.2] px-4 py-2 rounded-lg bg-tiber-500 text-alabaster-500 transition-colors hover:bg-tiber-600"
-          type="submit"
         >
           Update Profile
-        </button>
+        </ButtonLoader>
       </footer>
     </SettingsField>
   );

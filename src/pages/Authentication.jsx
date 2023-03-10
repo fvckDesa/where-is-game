@@ -1,7 +1,7 @@
 // layout
 import { SettingsField } from "@src/layouts";
 // components
-import { SignField } from "@src/components";
+import { SignField, ButtonLoader } from "@src/components";
 // hooks
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -23,7 +23,7 @@ function Authentication() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     getValues,
     reset,
   } = useForm();
@@ -100,14 +100,14 @@ function Authentication() {
               "The passwords do not match",
           })}
         />
-        <button
-          className="w-fit px-4 py-2 rounded-lg bg-tiber-500 text-alabaster-500 transition-colors hover:bg-tiber-600 disabled:bg-slate-600"
-          type="submit"
+        <ButtonLoader
+          isLoading={isSubmitting}
+          className="w-1/2 px-4 py-2 rounded-lg bg-tiber-500 text-alabaster-500 transition-colors hover:bg-tiber-600 disabled:bg-slate-600"
         >
           {userProviders.includes("password")
             ? "Change password"
             : "Add password"}
-        </button>
+        </ButtonLoader>
       </SettingsField>
       <SettingsField title="sign-in methods" className="flex flex-col gap-4">
         {PROVIDERS.map(({ logo, name, provider }) => (

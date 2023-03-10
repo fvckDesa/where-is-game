@@ -14,6 +14,7 @@ import {
   CreateField,
   DropImage,
   PopUp,
+  ButtonLoader,
 } from "@src/components";
 // hoc
 import withAuth from "@src/hoc/withAuth";
@@ -45,6 +46,7 @@ function Create() {
     characters[numCharacter]
   );
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     return () => URL.revokeObjectURL(image.url);
@@ -153,6 +155,8 @@ function Create() {
     const isError = checkError();
 
     if (isError) return;
+
+    setIsLoading(true);
 
     const gameId = await createGame({
       name,
@@ -287,9 +291,9 @@ function Create() {
             ))}
           </ul>
         </CreateField>
-        <button className="mt-auto" type="submit">
+        <ButtonLoader isLoading={isLoading} className="mt-auto">
           Create
-        </button>
+        </ButtonLoader>
       </form>
     </div>
   );

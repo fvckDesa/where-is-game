@@ -11,3 +11,4 @@ export { default as Navbar } from "./Navbar.jsx";
 export { default as PopUp } from "./PopUp.jsx";
 export { default as SelectedPoint } from "./SelectedPoint.jsx";
 export { default as SignField } from "./SignField.jsx";
+export { default as ButtonLoader } from "./ButtonLoader.jsx";
