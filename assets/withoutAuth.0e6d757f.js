@@ -1,0 +1,1 @@
+import{b as o,j as t,N as i}from"./index.24d213bf.js";import{u}from"./useRedirect.713383e7.js";function f(e){return function(r){const{next:n}=u(),{isUserSignedIn:s}=o();return s()?t(i,{to:n}):t(e,{...r})}}export{f as w};

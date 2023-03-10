@@ -1,1 +1,0 @@
-import{j as e,G as r}from"./index.20a8e46f.js";import{u as l}from"./useAllGames.75102af9.js";function o(){const s=l();return e("div",{className:"w-full h-[90%] px-8 pb-6 overflow-y-auto bg-alabaster-500",children:e("ul",{className:"flex justify-center items-center flex-wrap gap-5",children:s.map(a=>e(r,{game:a,baseUrl:"game"},a.id))})})}export{o as default};

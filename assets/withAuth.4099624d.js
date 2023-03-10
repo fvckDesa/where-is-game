@@ -1,1 +1,0 @@
-import{k as a,b as i,j as t,N as r}from"./index.20a8e46f.js";function c(n){return function(s){const e=a(),{isUserSignedIn:o}=i();return o()?t(n,{...s}):t(r,{to:"/signIn",state:{next:e.pathname}})}}export{c as w};
